@@ -17,19 +17,18 @@
          <v-container>
            <v-layout>
               <v-flex xs12 sm6>
-                <v-text-field label="Search for movies" append-icon="search" single-line v-model="searchMovies">
-                
-                </v-text-field>
+                <v-text-field label="Search for movies" append-icon="search" single-line v-model="searchMovies"></v-text-field>
             </v-flex>
          </v-layout>
          </v-container>
-        
-        <router-view></router-view>
 
+        <!-- Render Page here -->
+        <router-view></router-view>
+        <!-- -->
       </v-content>
-      <v-footer app height="100">
+
+      <v-footer app height="25">
         <template slot="default">
-          <!-- <h1>This is a footer</h1> -->
         </template>
       </v-footer>
     </v-app>
@@ -37,16 +36,17 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'TMDB',
   data () {
     return {
       searchMovies: ''
     }
-  }
-
+  },
+  methods: {},
+  mounted () {}
 }
 </script>
 
-<style>
+<style lang="css">
 @import 'vuetify/dist/vuetify.min.css';
 </style>

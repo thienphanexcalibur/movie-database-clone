@@ -1,0 +1,1 @@
+export const FETCH_NOW_SHOWING = 'FETCH_NOW_SHOWING'
