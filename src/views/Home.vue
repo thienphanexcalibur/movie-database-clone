@@ -1,42 +1,55 @@
 <template>
-  <v-container grid-list-xl text-xs-left>
+<v-app>
+  <v-content>
     <v-card-text>
       <h2>NOW SHOWING</h2>
+      <h3>Next Update: {{nowShowingList.nextUpdated}}</h3>
     </v-card-text>
+    <v-layout>
+      <v-flex xs12>
     <v-pagination 
     :length="nowShowingList.totalPages" 
     v-model="page" 
-    total-visible="8" 
+    total-visible="6" 
     @input="callBackFetch(fetchNowShowingList)"/>
-    <v-layout row wrap align-content-center>
-      <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs6 sm4 md3>
+    </v-flex>
+    </v-layout>
+    <v-layout class="movie" wrap  align-content-center>
+      <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
         <movie-card>
           <template slot="title">
-            <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">
+            <router-link :to="{name: 'MovieDetails', query: { search: movie.id }}">
+            <img class="movie__poster" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">
+            </router-link>
           </template>
           <template slot="text">
-            <h3>{{movie.title + ' '}}</h3>
+            <h2 class="movie__title">{{movie.title + ' '}}</h2>
             <br>
-            <p>{{movie.overview}}</p>
+            <read-more more-str="Read More" :text="movie.overview" link="#" :max-chars="250"></read-more>
           </template>
         </movie-card>
+        
       </v-flex>
     </v-layout>
     <v-card-text>
       <v-pagination :length="nowShowingList.totalPages" v-model="page" total-visible="8" @input="callBackFetch(fetchNowShowingList)"/>
     </v-card-text>
-  </v-container>
+  </v-content>
+  </v-app>
 </template>
 
 
 <script>
-import $ from 'jquery'
+// import $ from 'jquery'
 import MovieCard from '../components/MovieCard'
 import { mapState, mapActions } from 'vuex'
 import pagination from '../mixins/pagination'
-import readmore from 'readmore-js'
 
 export default {
+  data () {
+    return {
+    }
+  },
   components: {
     'movie-card': MovieCard
   },
@@ -45,10 +58,13 @@ export default {
     ...mapState(['nowShowingList'])
   },
   methods: {
-    ...mapActions(['fetchNowShowingList'])
+    ...mapActions(['fetchNowShowingList']),
+    async waitToFetch () {
+      await this.fetchNowShowingList()
+    }
   },
   mounted () {
-    this.callBackFetch(this.fetchNowShowingList)
+    this.waitToFetch()
   }
 }
 </script>

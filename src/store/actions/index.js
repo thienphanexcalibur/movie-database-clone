@@ -21,6 +21,20 @@ export default {
     if (response.page) {
       list.page = response.page
     }
+    list.nextUpdated = response.dates.maximum
     commit(types.FETCH_NOW_SHOWING, list)
+  },
+  async searchMovies ({ commit }, query) {
+    let response = {}
+    if (query) {
+      response = await api.searchWithQueries(query)
+      commit(types.SEARCH_MOVIES, response)
+    } else {
+      commit(types.SEARCH_MOVIES, response)
+    }
+  },
+  async fetchMovieDetails ({ commit }, id) {
+    const response = await api.fetchMovieDetails(id)
+    commit(types.FETCH_MOVIE_DETAILS, response)
   }
 }

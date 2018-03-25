@@ -1,12 +1,22 @@
 export default {
+  mode: 'history',
   routes: [
     {
       path: '/',
-      components: require('../App.vue'),
+      component: () => import('../App'),
       children: [
         {
           path: '',
-          components: require('../views/Home.vue')
+          name: 'Home',
+          component: () => import('../views/Home'),
+          meta: {
+            title: 'Now Showing'
+          }
+        },
+        {
+          path: 'movies',
+          name: 'MovieDetails',
+          component: () => import('../views/MovieDetails')
         }
       ]
     }

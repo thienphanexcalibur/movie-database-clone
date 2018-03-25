@@ -1,3 +1,7 @@
 export default {
-  nowShowingList: {}
+  nowShowingList: {},
+  searchResult: {
+    results: []
+  },
+  movieDetails: {}
 }

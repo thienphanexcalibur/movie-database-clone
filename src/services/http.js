@@ -1,5 +1,4 @@
-const originURL = 'https://api.themoviedb.org/3'
-const APIKey = 'a5877c35b31089df53f6fd35be35ffde'
+import { APIKey, originURL } from '../constant'
 
 export const http = {
   async get (url) {

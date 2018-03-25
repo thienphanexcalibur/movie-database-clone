@@ -7,7 +7,9 @@ import Common from './Common'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import ReadMore from 'vue-read-more'
 
+Vue.use(ReadMore)
 Vue.use(Vuetify)
 Vue.use(VueRouter)
 Vue.use(Vuex)

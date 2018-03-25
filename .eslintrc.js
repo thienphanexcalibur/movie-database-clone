@@ -24,6 +24,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     // don't require .vue extension when importing
+    'quotes': 0,
     'import/extensions': 0,
     // disallow reassignment of function parameters
     // disallow parameter object manipulation except for specific exclusions

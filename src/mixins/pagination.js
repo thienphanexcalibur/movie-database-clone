@@ -5,8 +5,8 @@ export default {
     }
   },
   methods: {
-    callBackFetch (func) {
-      func(this.page)
+    async callBackFetch (func) {
+      await func(this.page)
     }
   }
 }

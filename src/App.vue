@@ -1,29 +1,47 @@
 <template>
     <v-app>
-      <!-- <v-navigation-drawer app :dark="true"></v-navigation-drawer> -->
-      <v-toolbar scroll-off-screen app :dark="true" flat>
-        <v-toolbar-title>The TMDB Client</v-toolbar-title>
-        <!-- <v-expansion-panel></v-expansion-panel> -->
-        <v-spacer></v-spacer>
+      <v-navigation-drawer v-model="open" app light></v-navigation-drawer>
+      <v-toolbar scroll-off-screen app dark>
+        <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
+          <!-- <v-icon></v-icon> -->
+          <i class="material-icons">home</i>
+        </v-toolbar-side-icon>
         <v-toolbar-items>
-          <v-btn flat>DISCOVER</v-btn>
-          <v-btn flat>TV SHOWS</v-btn>
-          <v-btn flat>MOVIES</v-btn>
-          <v-btn flat>PEOPLE</v-btn>
+          <v-btn flat @click.stop="open = !open">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </v-btn>
+        </v-toolbar-items>
+        <!-- <v-expansion-panel></v-expansion-panel> -->
+        <v-toolbar-title></v-toolbar-title>
+        <v-spacer></v-spacer>
+        
+        <search-field class="search-field__search" v-model="selected"  
+               :options="searchResult.results" 
+               placeholder="Search for Movies, TV Shows..." 
+               label="original_title" 
+               @search:blur="clearSearchState"
+               @search="onSearch"
+               @input="directToPage">
+               <template slot="options"></template>
+                 <template slot="no-options">
+                   <span v-if="!selected && !searchResult.results"></span>
+                   <span v-if="searchResult.total_results === 0">No matching Movies or TV Shows</span>
+                   </template>
+        </search-field>
+        <v-toolbar-items>
+          <v-btn flat>
+            <i class="material-icons">search</i>
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
       <v-content>
-         <v-container>
-           <v-layout>
-              <v-flex xs12 sm6>
-                <v-text-field label="Search for movies" append-icon="search" single-line v-model="searchMovies"></v-text-field>
-            </v-flex>
-         </v-layout>
-         </v-container>
-
         <!-- Render Page here -->
+        <v-fade-transition>
+          <v-container grid-list-sm>
         <router-view></router-view>
+        </v-container>
+        </v-fade-transition>
         <!-- -->
       </v-content>
 
@@ -35,18 +53,54 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import searchfield from 'vue-select'
+
 export default {
-  name: 'TMDB',
+  name: 'Home',
   data () {
     return {
-      searchMovies: ''
+      selected: null,
+      open: false
     }
   },
-  methods: {},
-  mounted () {}
+  components: {
+    'search-field': searchfield
+  },
+  computed: {
+    ...mapState({
+      searchResult: state => state.searchResult
+    })
+  },
+  methods: {
+    ...mapActions(['searchMovies']),
+    onSearch (query, loading) {
+      loading(true)
+      this.search(loading, query, this)
+    },
+    async search (loading, query, vm) {
+      await vm.searchMovies(query)
+      setTimeout(() => {
+        loading(false)
+      }, 500)
+    },
+    clearSearchState () {
+      this.$store.state.searchResult = {}
+    },
+    directToPage () {
+      const $this = this
+      setTimeout(() => {
+        $this.$router.push({ name: 'MovieDetails', query: { search: this.selected.id }})
+      }, 500)
+    }
+  }
 }
 </script>
 
 <style lang="css">
 @import 'vuetify/dist/vuetify.min.css';
+@import '../assets/styles/Home.css';
+[v-cloak] {
+  display: none;
+}
 </style>

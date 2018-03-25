@@ -1,0 +1,10 @@
+.v-select {
+  width: 550px; }
+  .v-select .selected-tag {
+    color: white; }
+
+body {
+  overflow-x: hidden; }
+
+i {
+  cursor: pointer; }
