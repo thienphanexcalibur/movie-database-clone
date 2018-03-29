@@ -1,14 +1,28 @@
 <template>
 <v-app>
   <v-content>
-    <v-card-text>
-      <h2>NOW SHOWING</h2>
-      <h3>Next Update: {{nowShowingList.nextUpdated}}</h3>
+    <v-tabs centered light>
+      <v-tab-item>
+        </v-tab-item>
+        <v-tabs>
+      <v-tab>
+        <h2>NOW SHOWING</h2>
+      </v-tab>
+      <v-tab>
+        <h2>UPCOMING</h2>
+      </v-tab>
+      <v-tab disabled>
+        <h3>Next Update: {{nowShowingList.nextUpdated}}</h3>
+      </v-tab>
+      </v-tabs>
+      
+    </v-tabs>
+      
     </v-card-text>
     <v-layout>
       <v-flex xs12>
     <v-pagination 
-    :length="nowShowingList.totalPages" 
+    :length="10" 
     v-model="page" 
     total-visible="6" 
     @input="callBackFetch(fetchNowShowingList)"/>
@@ -58,13 +72,14 @@ export default {
     ...mapState(['nowShowingList'])
   },
   methods: {
-    ...mapActions(['fetchNowShowingList']),
+    ...mapActions(['fetchNowShowingList', 'fetchUpcomingList']),
     async waitToFetch () {
       await this.fetchNowShowingList()
     }
   },
   mounted () {
     this.waitToFetch()
+    this.fetchUpcomingList(1)
   }
 }
 </script>

@@ -9,6 +9,10 @@ export async function fetchNowShowingList (page) {
   const url = `/movie/now_playing?language=en-US&region=&page=${page}`
   return http.get(url)
 }
+export async function fetchUpcomingList (page) {
+  const url = `/movie/upcoming?language=en-US&page=${page}`
+  return http.get(url)
+}
 /**
  *
  * @param {String} query [] query to be searched

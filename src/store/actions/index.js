@@ -2,6 +2,15 @@ import * as types from '../types'
 import * as api from '../../api'
 
 export default {
+  async fetchUpcomingList ({ commit }, page) {
+    const response = await api.fetchUpcomingList(page)
+    const data = Object.assign({}, {
+      movies: response.results,
+      totalPages: response.total_pages,
+      currentPage: page
+    })
+    commit(types.FETCH_UPCOMING_LIST, data)
+  },
   async fetchNowShowingList ({ commit }, page) {
     const response = await api.fetchNowShowingList(page)
     const list = {

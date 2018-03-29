@@ -1,14 +1,15 @@
 <template>
     <v-app>
-      <v-navigation-drawer v-model="open" app light></v-navigation-drawer>
-      <v-toolbar scroll-off-screen app dark>
+      <v-navigation-drawer v-model="open" app></v-navigation-drawer>
+      <v-toolbar scroll-off-screen app dark color="blue-grey darken-3">
         <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
           <!-- <v-icon></v-icon> -->
           <i class="material-icons">home</i>
         </v-toolbar-side-icon>
         <v-toolbar-items>
           <v-btn flat @click.stop="open = !open">
-            <i class="material-icons">keyboard_arrow_right</i>
+            <i class="material-icons" v-show="open === false">keyboard_arrow_right</i>
+            <i class="material-icons" v-show="open === true">keyboard_arrow_left</i>
           </v-btn>
         </v-toolbar-items>
         <!-- <v-expansion-panel></v-expansion-panel> -->
@@ -38,7 +39,7 @@
       <v-content>
         <!-- Render Page here -->
         <v-fade-transition>
-          <v-container grid-list-sm>
+          <v-container grid-list-md>
         <router-view></router-view>
         </v-container>
         </v-fade-transition>

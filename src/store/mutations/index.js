@@ -4,6 +4,9 @@ export default {
   [types.FETCH_NOW_SHOWING] (state, payload) {
     state.nowShowingList = payload
   },
+  [types.FETCH_UPCOMING_LIST] (state, payload) {
+    state.upcomingList = payload
+  },
   [types.SEARCH_MOVIES] (state, payload) {
     state.searchResult = payload
   },
