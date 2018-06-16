@@ -18,16 +18,16 @@
       
     </v-tabs>
       
-    </v-card-text>
     <v-layout>
       <v-flex xs12>
-    <v-pagination 
-    :length="10" 
-    v-model="page" 
-    total-visible="6" 
-    @input="callBackFetch(fetchNowShowingList)"/>
-    </v-flex>
+        <v-pagination 
+        :length="10" 
+        v-model="page" 
+        total-visible="6" 
+        @input="callBackFetch(fetchNowShowingList)"/>
+      </v-flex>
     </v-layout>
+
     <v-layout class="movie" wrap  align-content-center>
       <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
         <movie-card>
@@ -39,15 +39,23 @@
           <template slot="text">
             <h2 class="movie__title">{{movie.title + ' '}}</h2>
             <br>
-            <read-more more-str="Read More" :text="movie.overview" link="#" :max-chars="250"></read-more>
+            <read-more 
+            more-str="Read More" 
+            :text="movie.overview" 
+            link="#" 
+            :max-chars="250"></read-more>
           </template>
         </movie-card>
-        
       </v-flex>
+
+      <v-flex>
+      <v-pagination 
+      :length="10" 
+      v-model="page" 
+      total-visible="6" 
+      @input="callBackFetch(fetchNowShowingList)"/>
+    </v-flex>
     </v-layout>
-    <v-card-text>
-      <v-pagination :length="nowShowingList.totalPages" v-model="page" total-visible="8" @input="callBackFetch(fetchNowShowingList)"/>
-    </v-card-text>
   </v-content>
   </v-app>
 </template>
