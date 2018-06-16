@@ -1,7 +1,7 @@
 <template>
     <v-app>
       <v-navigation-drawer v-model="open" app></v-navigation-drawer>
-      <v-toolbar scroll-off-screen app dark color="blue-grey darken-3">
+      <v-toolbar scroll-off-screen app dark flat>
         <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
           <!-- <v-icon></v-icon> -->
           <i class="material-icons">home</i>
@@ -39,7 +39,7 @@
       <v-content>
         <!-- Render Page here -->
         <v-fade-transition>
-          <v-container grid-list-md>
+          <v-container grid-list-md fluid>
         <router-view></router-view>
         </v-container>
         </v-fade-transition>

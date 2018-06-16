@@ -4,5 +4,6 @@ export default {
   searchResult: {
     results: []
   },
-  movieDetails: {}
+  movieDetails: {},
+  movieCredits: {}
 }

@@ -1,5 +1,5 @@
 import { http } from '../services/http'
-
+import { APIKey } from '../constant'
 /**
  * @param {void}
  * @returns {Promise} [] List now showing movies
@@ -25,5 +25,10 @@ export async function searchWithQueries (query) {
 
 export async function fetchMovieDetails (id) {
   const url = `/movie/${id}?append_to_response=videos`
+  return http.get(url)
+}
+
+export async function fetchMovieCredits (id) {
+  const url = `/movie/${id}/credits?api_key=${APIKey}`
   return http.get(url)
 }

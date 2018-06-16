@@ -17,20 +17,13 @@
       </v-tabs>
       
     </v-tabs>
-      
-    </v-card-text>
+
     <v-layout>
-      <v-flex xs12>
-    <v-pagination 
-    :length="10" 
-    v-model="page" 
-    total-visible="6" 
-    @input="callBackFetch(fetchNowShowingList)"/>
-    </v-flex>
+
     </v-layout>
     <v-layout class="movie" wrap  align-content-center>
       <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
-        <movie-card>
+        <movie-card :flat="false" :textOnly="false">
           <template slot="title">
             <router-link :to="{name: 'MovieDetails', query: { search: movie.id }}">
             <img class="movie__poster" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">
@@ -46,8 +39,11 @@
       </v-flex>
     </v-layout>
     <v-card-text>
-      <v-pagination :length="nowShowingList.totalPages" v-model="page" total-visible="8" @input="callBackFetch(fetchNowShowingList)"/>
-    </v-card-text>
+ <v-pagination 
+    :length="10" 
+    v-model="page" 
+    total-visible="6" 
+    @input="callBackFetch(fetchNowShowingList)"/>    </v-card-text>
   </v-content>
   </v-app>
 </template>
@@ -85,5 +81,5 @@ export default {
 </script>
 
 <style>
-
+@import '../../assets/styles/base.css';
 </style>

@@ -45,5 +45,9 @@ export default {
   async fetchMovieDetails ({ commit }, id) {
     const response = await api.fetchMovieDetails(id)
     commit(types.FETCH_MOVIE_DETAILS, response)
+  },
+  async fetchMovieCredits ({ commit }, id) {
+    const response = await api.fetchMovieCredits(id)
+    commit(types.FETCH_MOVIE_CREDITS, response)
   }
 }
