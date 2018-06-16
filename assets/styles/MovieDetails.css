@@ -4,7 +4,6 @@
   background-size: cover;
   display: flex; }
   .movie__backdrop__content {
-    margin-left: 1em;
     padding-bottom: 1em;
     align-self: flex-end;
     flex-wrap: wrap;
@@ -18,7 +17,7 @@
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
     /* IE6-9 */ }
-    .movie__backdrop__content.content .content__vote {
+    .movie__backdrop__content .content__vote {
       background-color: #fff;
       color: black;
       border-radius: 5px;

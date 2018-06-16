@@ -1,8 +1,16 @@
 <template>
 <v-fade-transition>
+<<<<<<< HEAD
   <v-content>
     <v-layout class="movie" justify-center>
       <v-flex xs12 sm8 justify-center>
+=======
+  <v-app>
+    <v-content>
+      <v-container>
+      <v-layout class="movie" justify-center>
+        <v-flex xs12 justify-center>
+>>>>>>> 4011c5732f08acb36f6dfedf90121d2691220234
         <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
         <!-- <v-card v-show="!loading">
           <v-card-media :src="`https://image.tmdb.org/t/p/w1280${backdropPath}`"></v-card-media>
@@ -10,14 +18,16 @@
         <template v-show="!loading">
           <div class="movie__backdrop">
             <div class="movie__backdrop__content content">
-              <div class="content__title display-1 mr-3">{{movieDetails.original_title + ' '}}
+              <div class="content__title display-1 mr-3 ml-3">{{movieDetails.original_title + ' '}}
                 <span class="content__vote">{{movieDetails.vote_average}}</span>
               </div>
               <div class="content__genres mt-1">
-                <h4>Genres:</h4>
-                <template v-for="genre in movieDetails.genres">
-                  <span class="content__genres__genre mr-1">{{genre.name}}</span>
-                </template>
+                <div class="subheading ml-3">Genres:</div>
+                <div class="content__genres-items ml-3">
+                  <template v-for="genre in movieDetails.genres">
+                    <span class="content__genres__genre mr-1">{{genre.name}}</span>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
@@ -68,6 +78,39 @@
   </v-content>
 </v-fade-transition>
 
+        </v-flex>
+       </v-layout>
+        <!-- <img class="movie__backdrop"  v-cloak :src="`https://image.tmdb.org/t/p/w1280${backdropPath ? backdropPath : posterPath ? posterPath : null}`" ref="moviebackdrop"> -->        
+          
+
+              <movie-card class="movie__details">
+                <template slot="text">
+                  <v-layout row wrap>
+                    <v-flex xs12>
+                      <div class="headline">Descriptions:</div>
+                    </v-flex>
+                    <v-flex xs6 text-xs-left>
+                      <p v-cloak>{{movieDetails.overview}}</p>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row wrap>
+                    <v-flex sm3>
+                      <div class="headline">
+                        Release Date:
+                      </div>
+                    </v-flex>
+                    <v-flex sm5>
+                      <p class="mx-auto"> {{movieDetails.release_date}}</p>
+                    </v-flex>
+                  </v-layout>
+                </template>
+              </movie-card>
+        
+        
+        </v-container>
+      </v-content>
+    </v-app>
+  </v-fade-transition>
 </template>
 
 <script>
