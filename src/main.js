@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import approuter from './router'
 import appstore from './store'
-import Common from './Common'
+import App from './App'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
@@ -26,7 +26,7 @@ new Vue({
   router,
   store,
   components: {
-    'App': Common
+    'App': App
   },
   template: '<App/>'
 })

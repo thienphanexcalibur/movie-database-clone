@@ -17,11 +17,6 @@
       </v-tabs>
       
     </v-tabs>
-<<<<<<< HEAD
-
-    <v-layout>
-
-=======
       
     <v-layout>
       <v-flex xs12>
@@ -31,7 +26,6 @@
         total-visible="6" 
         @input="callBackFetch(fetchNowShowingList)"/>
       </v-flex>
->>>>>>> 4011c5732f08acb36f6dfedf90121d2691220234
     </v-layout>
 
     <v-layout class="movie" wrap  align-content-center>
@@ -62,15 +56,6 @@
       @input="callBackFetch(fetchNowShowingList)"/>
     </v-flex>
     </v-layout>
-<<<<<<< HEAD
-    <v-card-text>
- <v-pagination 
-    :length="10" 
-    v-model="page" 
-    total-visible="6" 
-    @input="callBackFetch(fetchNowShowingList)"/>    </v-card-text>
-=======
->>>>>>> 4011c5732f08acb36f6dfedf90121d2691220234
   </v-content>
   </v-app>
 </template>

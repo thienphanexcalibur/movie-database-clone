@@ -1,16 +1,10 @@
 <template>
 <v-fade-transition>
-<<<<<<< HEAD
-  <v-content>
-    <v-layout class="movie" justify-center>
-      <v-flex xs12 sm8 justify-center>
-=======
   <v-app>
     <v-content>
       <v-container>
       <v-layout class="movie" justify-center>
         <v-flex xs12 justify-center>
->>>>>>> 4011c5732f08acb36f6dfedf90121d2691220234
         <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
         <!-- <v-card v-show="!loading">
           <v-card-media :src="`https://image.tmdb.org/t/p/w1280${backdropPath}`"></v-card-media>
@@ -75,11 +69,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-content>
-</v-fade-transition>
-
-        </v-flex>
-       </v-layout>
         <!-- <img class="movie__backdrop"  v-cloak :src="`https://image.tmdb.org/t/p/w1280${backdropPath ? backdropPath : posterPath ? posterPath : null}`" ref="moviebackdrop"> -->        
           
 
