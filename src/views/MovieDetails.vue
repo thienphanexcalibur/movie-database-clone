@@ -1,101 +1,73 @@
 <template>
-<v-fade-transition>
-  <v-app>
-    <v-content>
-      <v-container>
-      <v-layout class="movie" justify-center>
-        <v-flex xs12 justify-center>
-        <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
-        <!-- <v-card v-show="!loading">
-          <v-card-media :src="`https://image.tmdb.org/t/p/w1280${backdropPath}`"></v-card-media>
-        </v-card> -->
-        <template v-show="!loading">
-          <div class="movie__backdrop">
-            <div class="movie__backdrop__content content">
-              <div class="content__title display-1 mr-3 ml-3">{{movieDetails.original_title + ' '}}
-                <span class="content__vote">{{movieDetails.vote_average}}</span>
-              </div>
-              <div class="content__genres mt-1">
-                <div class="subheading ml-3">Genres:</div>
-                <div class="content__genres-items ml-3">
-                  <template v-for="genre in movieDetails.genres">
-                    <span class="content__genres__genre mr-1">{{genre.name}}</span>
-                  </template>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-      </v-flex>
-    </v-layout>
-
-    <v-layout justify-center>
-      <v-flex xs12 sm8>
-        <movie-card class="movie__details" :flat="true" :textOnly="true">
-          <template class="text-center" slot="media">
-            <div class="text-center movie__details__picture">
-            </div>
-          </template>
-          <template slot="title">
-            <p v-cloak>{{movieDetails.overview}}</p>
-          </template>
-          <template slot="text"></template>
-          <template slot="actions"></template>
-        </movie-card>
-      </v-flex>
-    </v-layout>
-
-    <v-layout justify-center>
-      <v-flex xs12 sm8>
-        <v-card flat>
-          <v-card-title>
-            <h4 class="display-1">Top Billed Cast</h4>
-          </v-card-title>
-          <v-layout row>
-            <template v-for="(item, index) in movieCredits.cast" v-if="index < 6">
-            <v-flex xs4 sm2> 
-             <movie-card>
-               <template slot="media">
-                 <img :src="`https://image.tmdb.org/t/p/w185${item.profile_path}`" width="100%">
-               </template>
-             <template slot="title">{{item.name}}</template>
-             <template slot="text"></template>
-             <template slot="footer"></template>
-             </movie-card>
-             
-            </v-flex>
-             </template>
-          </v-layout>
-        </v-card>
-      </v-flex>
-    </v-layout>
-        <!-- <img class="movie__backdrop"  v-cloak :src="`https://image.tmdb.org/t/p/w1280${backdropPath ? backdropPath : posterPath ? posterPath : null}`" ref="moviebackdrop"> -->        
-          
-
-              <movie-card class="movie__details">
-                <template slot="text">
-                  <v-layout row wrap>
-                    <v-flex xs12>
-                      <div class="headline">Descriptions:</div>
-                    </v-flex>
-                    <v-flex xs6 text-xs-left>
-                      <p v-cloak>{{movieDetails.overview}}</p>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row wrap>
-                    <v-flex sm3>
-                      <div class="headline">
-                        Release Date:
+  <v-fade-transition>
+    <v-app>
+      <v-content>
+        <v-container>
+          <v-layout class="movie" justify-center>
+            <v-flex xs12 sm9 justify-center flat="false">
+              <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
+              <template v-show="!loading">
+                <div class="movie__backdrop">
+                  <div class="movie__backdrop__content content">
+                    <div class="content__title display-1 mr-3 ml-3">
+                      {{movieDetails.original_title + ' '}}
+                      <span class="content__vote">
+                        {{movieDetails.vote_average}}
+                      </span>
+                    </div>
+                    <div class="content__genres mt-1">
+                      <div class="subheading ml-3">Genres:</div>
+                      <div class="content__genres-items ml-3">
+                        <template v-for="genre in movieDetails.genres">
+                          <span class="content__genres__genre mr-1">{{genre.name}}</span>
+                        </template>
                       </div>
-                    </v-flex>
-                    <v-flex sm5>
-                      <p class="mx-auto"> {{movieDetails.release_date}}</p>
-                    </v-flex>
-                  </v-layout>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </v-flex>
+          </v-layout>
+
+          <v-layout justify-center>
+            <v-flex xs12 sm9>
+              <movie-card class="movie__details" :flat="true" :textOnly="true">
+                <template class="text-center" slot="media">
+                  <div class="text-center movie__details__picture">
+                  </div>
                 </template>
+                <template slot="title">
+                  <p v-cloak>{{movieDetails.overview}}</p>
+                </template>
+                <template slot="text"></template>
+                <template slot="actions"></template>
               </movie-card>
-        
-        
+            </v-flex>
+          </v-layout>
+
+          <v-layout justify-center class="top-billed-cast">
+            <v-flex xs12 sm9>
+              <v-card flat>
+                <v-card-title>
+                  <span class="display-1">Top Billed Cast</span>
+                </v-card-title>
+                <v-layout row class="cast-wrapper">
+                  <template v-for="(item, index) in movieCredits.cast" v-if="index < 6">
+                    <v-flex class="cast">
+                      <movie-card :flat="true">
+                        <template slot="media">
+                          <img :src="`https://image.tmdb.org/t/p/w185${item.profile_path}`">
+                        </template>
+                        <template slot="title">
+                          {{item.name}}
+                        </template>
+                      </movie-card>
+                    </v-flex>
+                  </template>
+                </v-layout>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-content>
     </v-app>
@@ -127,7 +99,7 @@ export default {
       if (this.backdropPath) {
         $('.movie__backdrop').css('background-image', `url(https://image.tmdb.org/t/p/w1280${self.backdropPath})`)
       } else if (this.posterPath) {
-        $('movie__backdrop').css('background-image', `url(https://image.tmdb.org/t/p/original${self.posterPath})`)
+        $('.movie__backdrop').css('background-image', `url(https://image.tmdb.org/t/p/original${self.posterPath})`)
       }
     },
     validateScreenSize () {
@@ -154,7 +126,7 @@ export default {
   components: {
     'movie-card': MovieCard
   },
-  mounted () {
+  beforeMount () {
     this.fetchData()
     this.$store.dispatch('fetchMovieCredits', this.$route.query.search)
     this.validateScreenSize()

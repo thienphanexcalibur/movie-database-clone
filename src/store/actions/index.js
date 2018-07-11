@@ -1,5 +1,6 @@
 import * as types from '../types'
-import * as api from '../../api'
+import api from '../../api'
+import configurations from './configurations'
 
 export default {
   async fetchUpcomingList ({ commit }, page) {
@@ -49,5 +50,6 @@ export default {
   async fetchMovieCredits ({ commit }, id) {
     const response = await api.fetchMovieCredits(id)
     commit(types.FETCH_MOVIE_CREDITS, response)
-  }
+  },
+  ...configurations
 }

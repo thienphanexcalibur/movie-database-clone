@@ -4,6 +4,8 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+const env = process.env.NODE_ENV 
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -19,7 +21,10 @@ const createLintingRule = () => ({
   }
 })
 
+console.log(__dirname)
+
 module.exports = {
+  mode: env || 'development',
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -34,8 +39,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      'vue$': 'vue/dist/vue.esm.js'
+      // '@': path.resolve(__dirname, '../src'),
     }
   },
   module: {
@@ -46,6 +51,7 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
+
       {
         test: /\.js$/,
         loader: 'babel-loader',

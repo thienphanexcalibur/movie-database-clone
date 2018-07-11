@@ -38,3 +38,16 @@
   }
 }
 }
+.top-billed-cast {
+  .cast-wrapper {
+    overflow-x: scroll;
+    .cast {
+      .card {
+        .card__media__content {
+          width: 180px;
+          height: 278px;
+        }
+      }
+    }
+  }
+}

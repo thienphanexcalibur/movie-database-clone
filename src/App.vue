@@ -1,56 +1,51 @@
 <template>
-    <v-app>
-      <v-navigation-drawer v-model="open" app></v-navigation-drawer>
-      <v-toolbar scroll-off-screen app dark flat>
-        <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
-          <!-- <v-icon></v-icon> -->
-          <i class="material-icons">home</i>
-        </v-toolbar-side-icon>
-        <v-toolbar-items>
-          <v-btn flat @click.stop="open = !open">
-            <i class="material-icons" v-show="open === false">keyboard_arrow_right</i>
-            <i class="material-icons" v-show="open === true">keyboard_arrow_left</i>
-          </v-btn>
-        </v-toolbar-items>
-        <!-- <v-expansion-panel></v-expansion-panel> -->
-        <v-toolbar-title></v-toolbar-title>
-        <v-spacer></v-spacer>
-        
-        <search-field class="search-field__search" v-model="selected"  
-               :options="searchResult.results" 
-               placeholder="Search for Movies, TV Shows..." 
-               label="original_title" 
-               @search:blur="clearSearchState"
-               @search="onSearch"
-               @input="directToPage">
-               <template slot="options"></template>
-                 <template slot="no-options">
-                   <span v-if="!selected && !searchResult.results"></span>
-                   <span v-if="searchResult.total_results === 0">No matching Movies or TV Shows</span>
-                   </template>
-        </search-field>
-        <v-toolbar-items>
-          <v-btn flat>
-            <i class="material-icons">search</i>
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
+  <v-app>
+    <v-navigation-drawer v-model="open" app></v-navigation-drawer>
+    <v-toolbar scroll-off-screen app dark flat>
+      <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
+        <!-- <v-icon></v-icon> -->
+        <i class="material-icons">home</i>
+      </v-toolbar-side-icon>
+      <v-toolbar-items>
+        <v-btn flat @click.stop="open = !open">
+          <i class="material-icons" v-show="open === false">keyboard_arrow_right</i>
+          <i class="material-icons" v-show="open === true">keyboard_arrow_left</i>
+        </v-btn>
+      </v-toolbar-items>
+      <!-- <v-expansion-panel></v-expansion-panel> -->
+      <v-toolbar-title></v-toolbar-title>
+      <v-spacer></v-spacer>
 
-      <v-content>
-        <!-- Render Page here -->
-        <v-fade-transition>
-          <v-container grid-list-md fluid>
-        <router-view></router-view>
-        </v-container>
-        </v-fade-transition>
-        <!-- -->
-      </v-content>
-
-      <v-footer app height="25">
-        <template slot="default">
+      <search-field class="search-field__search" v-model="selected" :options="searchResult.results" placeholder="Search for Movies, TV Shows..."
+        label="original_title" @search:blur="clearSearchState" @search="onSearch" @input="directToPage">
+        <template slot="options"></template>
+        <template slot="no-options">
+          <span v-if="!selected && !searchResult.results"></span>
+          <span v-if="searchResult.total_results === 0">No matching Movies or TV Shows</span>
         </template>
-      </v-footer>
-    </v-app>
+      </search-field>
+      <v-toolbar-items>
+        <v-btn flat>
+          <i class="material-icons">search</i>
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+
+    <v-content>
+      <!-- Render Page here -->
+      <v-fade-transition>
+        <v-container grid-list-md fluid>
+          <router-view></router-view>
+        </v-container>
+      </v-fade-transition>
+      <!-- -->
+    </v-content>
+
+    <v-footer app height="25">
+      <template slot="default">
+      </template>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
@@ -94,6 +89,9 @@ export default {
         $this.$router.push({ name: 'MovieDetails', query: { search: this.selected.id }})
       }, 500)
     }
+  },
+  mounted () {
+    this.$store.dispatch('getConfigurations')
   }
 }
 </script>

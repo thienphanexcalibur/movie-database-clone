@@ -15,5 +15,8 @@ export default {
   },
   [types.FETCH_MOVIE_CREDITS] (state, payload) {
     state.movieCredits = payload
+  },
+  [types.CONFIGURATIONS] (state, payload) {
+    state.configurations = payload
   }
 }

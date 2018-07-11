@@ -6,11 +6,11 @@
     <v-card-title primary-title>
       <slot name="title"></slot>
     </v-card-title>
-    <v-card-text v-if="textOnly === false">
+    <v-card-text v-if="!titleOnly">
       <slot name="text" ></slot>
     </v-card-text>
-    <v-card-actions v-if="textOnly === false">
-      <slot name="footer"></slot>
+    <v-card-actions v-if="!titleOnly">
+      <slot name="action"></slot>
     </v-card-actions>
   </v-card>
 </template>
@@ -24,9 +24,8 @@ export default {
       required: false,
       default: false
     },
-    textOnly: {
+    titleOnly: {
       type: Boolean,
-      required: false,
       default: true
     }
   }

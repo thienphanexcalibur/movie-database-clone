@@ -7,6 +7,8 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./assets/styles/'));
 });
 gulp.task('sass:watch', function() {
-  gulp.watch('./src/assets/styles/*.scss', ['sass']);
+  gulp.watch('./src/assets/styles/*.scss', gulp.series('sass'));
 });
-gulp.task('dev', ['sass', 'sass:watch']);
+gulp.task('dev', gulp.series(gulp.parallel('sass', 'sass:watch'), function () {
+
+}));

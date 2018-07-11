@@ -5,5 +5,6 @@ export default {
     results: []
   },
   movieDetails: {},
-  movieCredits: {}
+  movieCredits: {},
+  configurations: {}
 }
