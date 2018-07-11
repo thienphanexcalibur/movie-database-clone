@@ -28,9 +28,9 @@
       </v-flex>
     </v-layout>
 
-    <v-layout class="movie" wrap  align-content-center>
-      <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
-        <movie-card :flat="false" :textOnly="false">
+    <v-layout class="movie" wrap align-content-center>
+      <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm3 md3>
+        <movie-card :flat="false" :titleOnly="false">
           <template slot="title">
             <router-link :to="{name: 'MovieDetails', query: { search: movie.id }}">
             <img class="movie__poster" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">
