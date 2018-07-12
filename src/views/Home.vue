@@ -1,23 +1,6 @@
 <template>
 <v-app>
   <v-content>
-    <v-tabs centered light>
-      <v-tab-item>
-        </v-tab-item>
-        <v-tabs>
-      <v-tab>
-        <h2>NOW SHOWING</h2>
-      </v-tab>
-      <v-tab>
-        <h2>UPCOMING</h2>
-      </v-tab>
-      <v-tab disabled>
-        <h3>Next Update: {{nowShowingList.nextUpdated}}</h3>
-      </v-tab>
-      </v-tabs>
-      
-    </v-tabs>
-      
     <v-layout>
       <v-flex xs12>
         <v-pagination 
@@ -30,7 +13,7 @@
 
     <v-layout class="movie" wrap  align-content-center>
       <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
-        <movie-card :flat="false" :textOnly="false">
+        <movie-card :flat="true" :titleOnly="false">
           <template slot="title">
             <router-link :to="{name: 'MovieDetails', query: { search: movie.id }}">
             <img class="movie__poster" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">
@@ -85,6 +68,11 @@ export default {
       await this.fetchNowShowingList()
     }
   },
+
+  beforeMount () {
+    this.$vuetify.goTo(70, { duration: 0 })
+  },
+
   mounted () {
     this.waitToFetch()
     this.fetchUpcomingList(1)

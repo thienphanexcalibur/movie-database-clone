@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <v-content>
     <v-navigation-drawer v-model="open" app></v-navigation-drawer>
     <v-toolbar scroll-off-screen app dark flat>
       <v-toolbar-side-icon @click="$router.push({name: 'Home'}); open = false">
@@ -12,7 +13,6 @@
           <i class="material-icons" v-show="open === true">keyboard_arrow_left</i>
         </v-btn>
       </v-toolbar-items>
-      <!-- <v-expansion-panel></v-expansion-panel> -->
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -31,7 +31,6 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-content>
       <!-- Render Page here -->
       <v-fade-transition>
         <v-container grid-list-md fluid>
@@ -39,12 +38,12 @@
         </v-container>
       </v-fade-transition>
       <!-- -->
-    </v-content>
-
-    <v-footer app height="25">
-      <template slot="default">
-      </template>
-    </v-footer>
+ 
+        <v-footer app height="25">
+          <template slot="default">
+          </template>
+        </v-footer>
+      </v-content>
   </v-app>
 </template>
 
