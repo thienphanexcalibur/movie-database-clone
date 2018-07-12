@@ -45,6 +45,7 @@
             link="#" 
             :max-chars="250"></read-more>
           </template>
+          <template slot="actions"></template>
         </movie-card>
       </v-flex>
 
