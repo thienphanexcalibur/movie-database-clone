@@ -2,6 +2,9 @@
     <v-fade-transition>
       <v-content>
         <v-container>
+          <v-breadcrumbs>
+            <v-breadcrumbs-item>Home</v-breadcrumbs-item>
+          </v-breadcrumbs>
           <v-layout class="movie" justify-center>
             <v-flex xs12 sm9 justify-center flat="false">
               <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
