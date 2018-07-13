@@ -1,18 +1,8 @@
 <template>
 <main>
-    <v-layout>
-      <v-flex xs12>
-        <v-pagination 
-        :length="10" 
-        v-model="page" 
-        total-visible="6" 
-        @input="callBackFetch(fetchNowShowingList)"/>
-      </v-flex>
-    </v-layout>
-
-    <v-layout class="movie" wrap  align-content-center>
+    <v-layout class="movie" wrap align-content-center>
       <v-flex v-for="movie in nowShowingList.movie" :key="movie.id" xs12 sm4 md3>
-        <movie-card :flat="true" :titleOnly="false">
+        <movie-card :flat="true" :titleOnly="false" ripple="true">
           <template slot="title">
             <router-link :to="{name: 'MovieDetails', query: { search: movie.id }}">
             <img class="movie__poster" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" width="100%">

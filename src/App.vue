@@ -18,10 +18,11 @@
 
       <search-field class="search-field__search" v-model="selected" :options="searchResult.results" placeholder="Search for Movies, TV Shows..."
         label="original_title" @search:blur="clearSearchState" @search="onSearch" @input="directToPage">
-        <template slot="options"></template>
+        <template slot="option" slot-scope="option" v-if="searchResult.results && searchResult.results.length > 0">
+          <span>{{ `${option.title ? option.title : option.original_title ? option.original_title : ''} ${option.release_date ? '(' + (option.release_date).slice(0,4) + ')' : '' }` }}</span>
+        </template>
         <template slot="no-options">
-          <span v-if="!selected && !searchResult.results"></span>
-          <span v-if="searchResult.total_results === 0">No matching Movies or TV Shows</span>
+          <span>No matching Movies or TV Shows</span>
         </template>
       </search-field>
       <v-toolbar-items>

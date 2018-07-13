@@ -2,19 +2,22 @@
     <v-fade-transition>
       <v-content>
         <v-container>
-          <v-breadcrumbs>
-            <v-breadcrumbs-item>Home</v-breadcrumbs-item>
-          </v-breadcrumbs>
           <v-layout class="movie" justify-center>
             <v-flex xs12 sm9 justify-center flat="false">
-              <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-center></v-progress-circular>
+              <v-breadcrumbs>
+                <router-link :to="{ name: 'Home' }">
+                <v-breadcrumbs-item>Back</v-breadcrumbs-item>
+                </router-link>
+                <v-breadcrumbs-item href="">{{ movieDetails.original_title }}</v-breadcrumbs-item>
+              </v-breadcrumbs>
+            <v-progress-circular v-show="loading" color="red" :indeterminate="loading" justify-self-center></v-progress-circular>
               <template v-show="!loading">
                 <div class="movie__backdrop">
                   <div class="movie__backdrop__content content">
                     <div class="content__title display-1 mr-3 ml-3">
                       {{movieDetails.original_title + ' '}}
                       <span class="content__vote">
-                        {{movieDetails.vote_average}}
+                        {{ movieDetails && movieDetails.vote_average ? movieDetails.vote_average.toFixed(1) : '0.0'}}
                       </span>
                     </div>
                     <div class="content__genres mt-1">
@@ -93,14 +96,17 @@
                   <span class="display-1">Top Billed Cast</span>
                 </v-card-title>
                 <v-layout row class="cast-wrapper">
-                  <template v-for="(item, index) in movieCredits.cast" v-if="index < 6">
+                  <template v-for="(cast, index) in movieCredits.cast" v-if="index < 6">
                     <v-flex class="cast">
                       <movie-card :flat="true">
                         <template slot="media">
-                          <img :src="`https://image.tmdb.org/t/p/w185${item.profile_path}`">
+                          <img :src="`https://image.tmdb.org/t/p/w185${cast.profile_path}`">
                         </template>
                         <template slot="title">
-                          {{item.name}}
+                          <h4>{{ cast.name }}</h4>
+                          <div>
+                          <p>{{ cast.character }}</p>
+                          </div>
                         </template>
                       </movie-card>
                     </v-flex>
@@ -126,7 +132,6 @@
                   </v-card-media>
                 </v-card>
             </v-dialog>
-
         </v-container>
       </v-content>
     </v-fade-transition>
@@ -153,7 +158,9 @@ export default {
     ...mapActions(['fetchMovieDetails']),
 
     muteTrailer () {
-      $("iframe").attr("src", `https://www.youtube.com/embed/${this.videoSrc[0].key}`)
+      if (this.videoSrc) {
+        $("iframe").attr("src", `https://www.youtube.com/embed/${this.videoSrc[0].key}`)
+      }
     },
 
     async fetchData () {
