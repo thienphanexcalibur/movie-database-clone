@@ -1,6 +1,5 @@
 <template>
-  <v-fade-transition>
-    <v-app>
+    <v-fade-transition>
       <v-content>
         <v-container>
           <v-layout class="movie" justify-center>
@@ -29,7 +28,9 @@
             </v-flex>
           </v-layout>
 
-          <v-layout justify-center>
+          <!-- Movie overview -->
+
+          <v-layout justify-center class="movie-overview">
             <v-flex xs12 sm9>
               <movie-card class="movie__details" :flat="true" :textOnly="true">
                 <template class="text-center" slot="media">
@@ -37,13 +38,50 @@
                   </div>
                 </template>
                 <template slot="title">
-                  <p v-cloak>{{movieDetails.overview}}</p>
+                  <p v-cloak>{{ movieDetails.overview }}</p>
                 </template>
-                <template slot="text"></template>
-                <template slot="actions"></template>
               </movie-card>
             </v-flex>
           </v-layout>
+
+          <!-- More Info -->
+
+          <v-layout justify-center class="movie-details">
+            <v-flex xs9>
+              <v-card flat>
+                <v-layout>
+                  <v-flex xs2 class="movie-details__heading-texts" align-content-center d-flex="true">
+                    <v-card-title>
+                       <div>Trailer & Teasers</div>
+                    </v-card-title>
+                  </v-flex>
+                  <v-flex xs5 class="movie-details__trailler">
+                    <div class="icon-group">
+                      <i class="icon-group-icon material-icons teaser-icon" @click="showTrailer = true">
+                        play_circle_outline
+                      </i>
+                      <span class="icon-group-append">Play Teaser</span>
+                    </div>
+                     <div class="icon-group">
+                    <i class="icon-group-icon material-icons trailer-icon" @click="showTrailer = true">
+                      play_circle_filled
+                      <!-- play_circle_outline -->
+                    </i>
+                    <span class="icon-group-append">
+                    Play Trailer
+                   </span>
+                   </div>
+                  </v-flex>
+
+                <v-flex xs5 class="movie-details__addtitional">
+                  Release Date: {{ movieDetails.release_date }}
+                </v-flex>
+              </v-layout>
+               </v-card>
+              </v-flex>
+          </v-layout>
+
+          <!-- Top Billed Cast -->
 
           <v-layout justify-center class="top-billed-cast">
             <v-flex xs12 sm9>
@@ -68,10 +106,27 @@
               </v-card>
             </v-flex>
           </v-layout>
+
+          <!-- Trailer Modal -->
+
+            <v-dialog v-model="showTrailer" width="1000" @input="muteTrailer">
+                <v-card>
+                  <v-card-media> 
+                    <iframe 
+                      width="100%" height="500" 
+                      :src="`https://www.youtube.com/embed/${videoSrc ? videoSrc[0].key : null}?html5=1`" 
+                      frameborder="0" 
+                      allow="autoplay; 
+                      encrypted-media"
+                      allowfullscreen>
+                    </iframe>
+                  </v-card-media>
+                </v-card>
+            </v-dialog>
+
         </v-container>
       </v-content>
-    </v-app>
-  </v-fade-transition>
+    </v-fade-transition>
 </template>
 
 <script>
@@ -80,15 +135,24 @@ import { mapActions, mapState } from 'vuex'
 import MovieCard from '../components/MovieCard'
 
 export default {
+  name: 'MovieDetails',
+
   data () {
     return {
       loading: true,
       latch: true,
+      showTrailer: false,
       noImage: require('../assets/images/no-image.png')
     }
   },
+
   methods: {
     ...mapActions(['fetchMovieDetails']),
+
+    muteTrailer () {
+      $("iframe").attr("src", `https://www.youtube.com/embed/${this.videoSrc[0].key}`)
+    },
+
     async fetchData () {
       const self = this
       this.loading = true
@@ -119,6 +183,20 @@ export default {
       posterPath: state => state.movieDetails.poster_path,
       backdropPath: state => state.movieDetails.backdrop_path
     }),
+
+    videoSrc () {
+      if (this.movieDetails && this.movieDetails.videos) {
+        const trailers = this.movieDetails.videos.results.filter(video => video.type === 'Trailer')
+        const teasers = this.movieDetails.videos.results.filter(video => video.type === 'Teaser')
+
+        if (!trailers) {
+          return teasers
+        } else {
+          return trailers
+        }
+      }
+    },
+
     currentId () {
       return this.$route.query.search
     }
@@ -147,6 +225,7 @@ export default {
 
 <style>
 @import '../../assets/styles/MovieDetails.css';
+@import '../../assets/styles/base.css';
 [v-cloak] {
   display: none;
 }

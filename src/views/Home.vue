@@ -1,6 +1,5 @@
 <template>
-<v-app>
-  <v-content>
+<main>
     <v-layout>
       <v-flex xs12>
         <v-pagination 
@@ -39,8 +38,7 @@
       @input="callBackFetch(fetchNowShowingList)"/>
     </v-flex>
     </v-layout>
-  </v-content>
-  </v-app>
+    </main>
 </template>
 
 

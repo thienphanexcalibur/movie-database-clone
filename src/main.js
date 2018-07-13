@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import approuter from './router'
 import appstore from './store'
-import App from './App'
+import Entry from './Entry'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
@@ -22,11 +22,9 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#tmdbapp',
-  name: 'Root',
+  name: 'The Movie Database',
   router,
   store,
-  components: {
-    'App': App
-  },
-  template: '<App/>'
+  components: { Entry },
+  render: (h) => h(Entry)
 })

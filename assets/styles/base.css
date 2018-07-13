@@ -1,2 +1,10 @@
 * {
   font-family: 'Work Sans', sans-serif; }
+
+.icon-group {
+  display: flex; }
+  .icon-group .material-icons {
+    display: block;
+    font-size: 35px; }
+  .icon-group-append {
+    align-self: center; }
