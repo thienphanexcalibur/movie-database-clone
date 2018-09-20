@@ -1,17 +1,25 @@
 import { http } from '../services/http'
-import { APIKey } from '../constant'
 import configurations from './configurations'
-/**
- * @param {void}
- * @returns {Promise} [] List now showing movies
- */
+import { APIKey } from "../constant"
+
 export default {
+  /**
+   * Fetch Now Showing List
+   * @param page
+   * @returns {*|Promise<*>}
+   */
   fetchNowShowingList (page = 1) {
-    const url = `/movie/now_playing?language=en-US&region=&page=${page}`
+    const url = `movie/now_playing?language=en-US&region=&page=${page}`
     return http.get(url)
   },
+
+  /**
+   * Fetch Upcoming List
+   * @param page
+   * @returns {*|Promise<*>}
+   */
   fetchUpcomingList (page = 1) {
-    const url = `/movie/upcoming?language=en-US&page=${page}`
+    const url = `movie/upcoming?language=en-US&page=${page}`
     return http.get(url)
   },
   /**
@@ -20,18 +28,28 @@ export default {
    * @returns {Promise} [] List movies in Objects
    */
   searchWithQueries (query) {
-    const url = `/search/movie?query=${query}`
+    const url = `search/movie?query=${query}`
     return http.get(url)
   },
 
+  /**
+   * Fetch Movie Details
+   * @param id
+   * @returns {*|Promise<*>}
+   */
   fetchMovieDetails (id) {
-    const url = `/movie/${id}?append_to_response=videos`
+    const url = `movie/${id}?append_to_response=videos`
     return http.get(url)
   },
 
+  /**
+   * Fetch Movie Credits
+   * @param id
+   * @returns {*|Promise<*>}
+   */
   fetchMovieCredits (id) {
-    const url = `/movie/${id}/credits?api_key=${APIKey}`
-    return http.get(url)
+    const url = `movie/${id}/credits?api_key=${APIKey}`
+    return http.get(url, false)
   },
   ...configurations
 }
