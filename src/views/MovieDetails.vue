@@ -101,15 +101,15 @@
             <v-layout row class="cast-wrapper">
               <template v-for="(cast, index) in movieCredits.cast" v-if="index < 6">
                 <v-flex class="cast">
-                  <movie-card :flat="true">
+                  <movie-card flat>
                     <template slot="media">
                       <img :src="`https://image.tmdb.org/t/p/w185${cast.profile_path}`">
                     </template>
                     <template slot="title">
-                      <h4>{{ cast.name }}</h4>
-                      <div>
+                      <span>
+                        <h4>{{ cast.name }}</h4>
                         <p>{{ cast.character }}</p>
-                      </div>
+                      </span>
                     </template>
                   </movie-card>
                 </v-flex>

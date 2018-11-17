@@ -9,8 +9,6 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import ReadMore from 'vue-read-more'
 
-import 'vuetify/dist/vuetify.min.css'
-
 Vue.use(ReadMore)
 Vue.use(Vuetify)
 Vue.use(VueRouter)
